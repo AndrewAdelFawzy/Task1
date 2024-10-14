@@ -1,0 +1,16 @@
+﻿@page
+@model Task1.Web.Pages.Products.DetailsModel
+@{
+    ViewData["Title"] = "Product details";
+}
+
+<h2>Product details</h2>
+
+<div class="card w-50">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Product.Name</h5>
+        <p class="card-text">@Model.Product.Description</p>
+        <p class="card-text">@Model.Product.IsActive</p>
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>

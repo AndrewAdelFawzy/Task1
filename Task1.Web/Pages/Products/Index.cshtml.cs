@@ -23,6 +23,7 @@ namespace Task1.Web.Pages.Products
             Products = await _context.Products
                 .Select(p => new ProductViewModel
                 {
+                    Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
                     IsActive = p.IsActive,

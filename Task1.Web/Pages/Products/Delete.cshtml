@@ -1,0 +1,24 @@
+﻿@page
+@model Task1.Web.Pages.Products.DeleteModel
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<h2>Delete Product</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <div>
+        <label>ID:</label> @Model.Product.Id
+    </div>
+    <div>
+        <label>Name:</label> @Model.Product.Name
+    </div>
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="Product.Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+</form>

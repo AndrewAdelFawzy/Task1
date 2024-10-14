@@ -26,10 +26,8 @@ namespace Task1.Web.Pages.Products
         public async Task <IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
-
+           
             Product product = new()
             {
                 Name = Product.Name,
