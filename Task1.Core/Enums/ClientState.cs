@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1.Core.Enums
 {
-    public enum State
+    public enum ClientState
     {
         Inactive,
         Active,

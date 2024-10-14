@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1.Core.Enums
 {
-    public enum Class
+    public enum ClientClass
     {
         A,
         B,
