@@ -1,0 +1,71 @@
+﻿@page
+@model Task1.Web.Pages.Products.IndexModel
+@{
+    ViewData["Title"] = "Products List";
+}
+
+<h2>Products List</h2>
+
+<p>
+    <a asp-page="./Create" class="btn btn-primary">Create New Product</a>
+</p>
+
+<div class="card-body">
+    @if (!Model.Products.Any())
+    {
+        <div class="alert alert-dismissible bg-light-warning border border-warning border-dashed d-flex flex-column flex-sm-row w-100 p-5 mb-10">
+            <!--begin::Icon-->
+            <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
+            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4 mb-5 mb-sm-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                    <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
+                    <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
+                </svg>
+            </span>
+            <!--end::Svg Icon-->
+            <!--end::Icon-->
+            <!--begin::Content-->
+            <div class="d-flex flex-column pe-0 pe-sm-10 align-self-center">
+                <h5 class="mb-1">No products found!</h5>
+            </div>
+            <!--end::Content-->
+        </div>
+    }
+
+    else
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Is Active
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.IsActive</td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a> |
+                            <a asp-page="./Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a> |
+                            <a asp-page="./Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+
