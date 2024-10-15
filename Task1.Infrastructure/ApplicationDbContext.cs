@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using Task1.Core.Entities;
 
 
@@ -16,12 +17,17 @@ namespace Task1.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure unique constraint for Client Code
-            //modelBuilder.Entity<Client>()
-            //    .HasIndex(c => c.Code)
-            //    .IsUnique();
+            base.OnModelCreating(modelBuilder);
 
-            //base.OnModelCreating(builder);
+            // Configure the ClientClass enum to be stored as a string
+            modelBuilder.Entity<Client>()
+                .Property(c => c.Class)
+                .HasConversion<string>();
+
+            // Configure the ClientState enum to be stored as a string
+            modelBuilder.Entity<Client>()
+                .Property(c => c.State)
+                .HasConversion<string>();
         }
     }
 }
