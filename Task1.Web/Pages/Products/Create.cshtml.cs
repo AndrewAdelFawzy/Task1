@@ -16,7 +16,7 @@ namespace Task1.Web.Pages.Products
         }
 
         [BindProperty]
-        public ProductFormViewModel Product { get; set; }
+        public ProductViewModel ProductModel { get; set; }
         
         public void OnGet()
         {
@@ -26,15 +26,13 @@ namespace Task1.Web.Pages.Products
         public async Task <IActionResult> OnPost()
         {
             if (!ModelState.IsValid)
-            {
                 return Page();
-            }
-
+           
             Product product = new()
             {
-                Name = Product.Name,
-                Description = Product.Description,
-                IsActive = Product.IsActive,
+                Name = ProductModel.Name,
+                Description = ProductModel.Description,
+                IsActive = ProductModel.IsActive,
             };
 
             _context.Products.Add(product);

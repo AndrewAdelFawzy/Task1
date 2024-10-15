@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1.Web", "Task1.Web\Task1.Web.csproj", "{C2C55FED-E7EE-4555-8543-632BF26466B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task1.Web", "Task1.Web\Task1.Web.csproj", "{C2C55FED-E7EE-4555-8543-632BF26466B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1.Core", "Task1.Core\Task1.Core.csproj", "{9D88F4AE-101B-4DA6-AD72-03691A1892A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task1.Core", "Task1.Core\Task1.Core.csproj", "{9D88F4AE-101B-4DA6-AD72-03691A1892A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1.Infrastructure", "Task1.Infrastructure\Task1.Infrastructure.csproj", "{BD754812-5273-4828-8E5C-68597A9742AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task1.Infrastructure", "Task1.Infrastructure\Task1.Infrastructure.csproj", "{BD754812-5273-4828-8E5C-68597A9742AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
