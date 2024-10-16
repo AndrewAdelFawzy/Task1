@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using Task1.Core.Entities;
 using Task1.Core.Enums;
 
 namespace Task1.Web.ViewModels
@@ -21,5 +22,7 @@ namespace Task1.Web.ViewModels
         public List<SelectListItem>? ClientStates { get; set; } = null!;
 
         public List<SelectListItem>? ClientClasses { get; set; } = null!;
+
+        public List<ClientProductsDetailsViewModel>? Products { get; set; }
     }
 }

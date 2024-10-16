@@ -24,6 +24,7 @@ namespace Task1.Web.Pages.Products
             if (product is null)
                 return NotFound();
 
+            Product.Id = id;
             Product.Name = product.Name;
             Product.Description = product.Description;
             Product.IsActive = product.IsActive;

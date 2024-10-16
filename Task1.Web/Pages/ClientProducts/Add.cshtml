@@ -1,0 +1,47 @@
+﻿@page
+@model Task1.Web.Pages.ClientProducts.AddModel
+@{
+    ViewData["Title"] = "Add product to Client";
+}
+
+<h2>Add product to Client</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="post">
+              <input type="hidden" asp-for="@Model.ClientProductModel.ProductId" /> 
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-5">
+                                <div class="form-floating mb-2">
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" asp-for="ClientProductModel.Code" />
+                                    <label asp-for="ClientProductModel.Code"></label>
+                                </div>
+                                <span asp-validation-for="ClientProductModel.Code" class="text-danger d-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="indicator-label">
+                            Add
+                        </span>
+                        <span class="indicator-progress">
+                            Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </span>
+                    </button>
+                    <a class="btn btn-light text-primary ms-3" asp-page="/Products/Index">Back to list</a>
+                </div>
+        </form>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

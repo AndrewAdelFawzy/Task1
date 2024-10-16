@@ -72,7 +72,7 @@ namespace Task1.Web.Pages.Clients
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = ClientModel.Id });
         }
 
 

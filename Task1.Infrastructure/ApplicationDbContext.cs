@@ -19,6 +19,9 @@ namespace Task1.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
+            // To make a compiste key
+            modelBuilder.Entity<ClientProducts>().HasKey(e => new { e.ClientId, e.ProductId });
+
             // Configure the ClientClass enum to be stored as a string
             modelBuilder.Entity<Client>()
                 .Property(c => c.Class)
@@ -28,6 +31,8 @@ namespace Task1.Infrastructure
             modelBuilder.Entity<Client>()
                 .Property(c => c.State)
                 .HasConversion<string>();
+
+            
         }
     }
 }
