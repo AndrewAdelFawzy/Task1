@@ -4,6 +4,7 @@ namespace Task1.Web.ViewModels
 {
     public class ClientProductsDetailsViewModel
     {
+        public int ProductId { get; set; }
         [MaxLength(50)]
         public string Name { get; set; } = null!;
         [MaxLength(150)]

@@ -53,7 +53,7 @@ namespace Task1.Infrastructure.Migrations
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("Task1.Core.Entities.ClientProducts", b =>
@@ -79,7 +79,7 @@ namespace Task1.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ClientProducts");
+                    b.ToTable("ClientProducts", (string)null);
                 });
 
             modelBuilder.Entity("Task1.Core.Entities.Product", b =>
@@ -105,7 +105,7 @@ namespace Task1.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Task1.Core.Entities.ClientProducts", b =>

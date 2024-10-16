@@ -29,7 +29,7 @@ namespace Task1.Web.Pages.Clients
 
             ClientModel = new ClientViewModel
             {
-                Id= id,
+                ClientId= id,
                 Name = client.Name,
                 Code = client.Code,
                 State = client.State,
@@ -37,6 +37,7 @@ namespace Task1.Web.Pages.Clients
                 Products = client.Products!
                 .Select(cp => new ClientProductsDetailsViewModel
                 {
+                    ProductId = cp.Product!.Id,
                     Name = cp.Product!.Name,
                     Description = cp.Product.Description,
                     IsActive = cp.Product.IsActive,

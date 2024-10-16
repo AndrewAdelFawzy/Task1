@@ -21,7 +21,7 @@ namespace Task1.Web.Pages.Clients
            Clients = await _context.Clients
                 .Select(p => new ClientViewModel
                 {
-                    Id = p.Id,
+                    ClientId = p.Id,
                     Name = p.Name,
                     Code = p.Code,
                     Class = p.Class,

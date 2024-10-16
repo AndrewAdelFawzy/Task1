@@ -5,6 +5,10 @@
 }
 <h2>Client details</h2>
 
+@section Styles {
+    <link href="~/assets/plugins/datatables/datatables.bundle.css" rel="stylesheet" />
+}
+
 <div class="content flex-column-fluid" id="kt_content">
     <!--begin::Navbar-->
     <div class="card mb-9">
@@ -28,7 +32,7 @@
                         <!--end::Details-->
                         <!--begin::Actions-->
                         <div class="d-flex mb-4">
-                            <a asp-page="./Edit" asp-route-id="@Model.ClientModel.Id" class="btn btn-sm btn-primary me-3">Edit</a>
+                            <a asp-page="./Edit" asp-route-id="@Model.ClientModel.ClientId" class="btn btn-sm btn-primary me-3">Edit</a>
                         </div>
                         <!--end::Actions-->
                     </div>
@@ -155,7 +159,7 @@
                                             <!--end::Menu item-->
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
-                                                <a asp-action="Edit" asp-controller="BookCopies" asp-route-copyId="" class="menu-link px-3 js-render-modal">
+                                                <a asp-page="/ClientProducts/Delete" asp-route-ClientId="@Model.ClientModel.ClientId" asp-route-ProductId="@item.ProductId" class="menu-link px-3 js-render-modal">
                                                     Delete
                                                 </a>
                                             </div>
@@ -173,3 +177,14 @@
         <!--end::Card-->
     </div>
 </div>
+@section Plugins {
+    <script src="~/assets/plugins/datatables/datatables.bundle.js"></script>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable();
+        });
+    </script>
+}

@@ -4,6 +4,10 @@
     ViewData["Title"] = "Products List";
 }
 
+@section Styles {
+    <link href="~/assets/plugins/datatables/datatables.bundle.css" rel="stylesheet" />
+}
+
 <h2>Products List</h2>
 
 <p>
@@ -35,37 +39,51 @@
 
     else
     {
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Description
-                    </th>
-                    <th>
-                        Is Active
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model.Products)
-                {
+        <div class="table-responsive">
+            <table class="table table-row-dashed table-row-gray-300 gy-7">
+                <thead>
                     <tr>
-                        <td>@product.Name</td>
-                        <td>@product.Description</td>
-                        <td>@product.IsActive</td>
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a> |
-                            <a asp-page="./Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a> |
-                            <a asp-page="./Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
-                        </td>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Is Active
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.Products)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.IsActive</td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a> |
+                                <a asp-page="./Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a> |
+                                <a asp-page="./Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
+</div>
 
+@section Plugins {
+    <script src="~/assets/plugins/datatables/datatables.bundle.js"></script>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('table').DataTable();
+        });
+    </script>
+}
 
