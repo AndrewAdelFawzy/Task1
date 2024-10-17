@@ -11,9 +11,8 @@ namespace Task1.Web.ViewModels
         [MaxLength(50)]
         public string Name { get; set; } = null!;
 
-        [MaxLength(9)]
         [RegularExpression("^[0-9]{9}$", ErrorMessage = "Code must be 9 digits.")]
-        public string Code { get; set; } = null!;
+        public int Code { get; set; }
 
         public ClientClass Class { get; set; }
 

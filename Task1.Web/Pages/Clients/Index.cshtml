@@ -1,76 +1,77 @@
 ﻿@page
 @model Task1.Web.Pages.Clients.IndexModel
 @{
-    ViewData["Title"] = "Clients List";
+    ViewData["Title"] = "Clients list";
 }
 
 @section Styles {
     <link href="~/assets/plugins/datatables/datatables.bundle.css" rel="stylesheet" />
 }
 
-<h2>Products List</h2>
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Clients list</h2>
+        <a asp-page="./Create" class="btn btn-primary">+ Add new client</a>
+    </div>
 
-<p>
-    <a asp-page="./Create" class="btn btn-primary">Add New Client</a>
-</p>
-
-<div class="card-body">
-    @if (!Model.Clients.Any())
-    {
-        <div class="alert alert-dismissible bg-light-warning border border-warning border-dashed d-flex flex-column flex-sm-row w-100 p-5 mb-10">
-            <!--begin::Icon-->
-            <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
-            <span class="svg-icon svg-icon-2hx svg-icon-warning me-4 mb-5 mb-sm-0">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
-                    <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
-                    <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
-                </svg>
-            </span>
-            <!--end::Svg Icon-->
-            <!--end::Icon-->
-            <!--begin::Content-->
-            <div class="d-flex flex-column pe-0 pe-sm-10 align-self-center">
-                <h5 class="mb-1">No Clients found!</h5>
+    <div class="card-body">
+        @if (!Model.Clients.Any())
+        {
+            <div class="alert alert-dismissible bg-light-warning border border-warning border-dashed d-flex flex-column flex-sm-row w-100 p-5 mb-10">
+                <!--begin::Icon-->
+                <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
+                <span class="svg-icon svg-icon-2hx svg-icon-warning me-4 mb-5 mb-sm-0">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="currentColor" />
+                        <rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="currentColor" />
+                        <rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="currentColor" />
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                <!--end::Icon-->
+                <!--begin::Content-->
+                <div class="d-flex flex-column pe-0 pe-sm-10 align-self-center">
+                    <h5 class="mb-1">No Clients found!</h5>
+                </div>
+                <!--end::Content-->
             </div>
-            <!--end::Content-->
-        </div>
-    }
+        }
 
-    else
-    {
-        <div class="table-responsive">
-            <table class="table table-row-dashed table-row-gray-300 gy-7">
-                <thead>
-                    <tr>
-                        <th class="fw-bold">Name</th>
-                        <th class="fw-bold">Code</th>
-                        <th class="fw-bold">Class</th>
-                        <th class="fw-bold">State</th>
-                        <th class="fw-bold justify-content-center">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var client in Model.Clients)
-                    {
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                    <thead>
                         <tr>
-                            <td>@client.Name</td>
-                            <td>@client.Code</td>
-                            <td>@client.Class</td>
-                            <td>@client.State</td>
-                            <td>
-                                <a asp-page="./Edit" asp-route-id="@client.ClientId" class="btn btn-warning">Edit</a> |
-                                <a asp-page="./Delete" asp-route-id="@client.ClientId" class="btn btn-danger">Delete</a> |
-                                <a asp-page="./Details" asp-route-id="@client.ClientId" class="btn btn-primary">Details</a>
-                            </td>
+                            <th class="fw-bold">Name</th>
+                            <th class="fw-bold">Code</th>
+                            <th class="fw-bold">Class</th>
+                            <th class="fw-bold">State</th>
+                            <th class="fw-bold justify-content-center">Actions</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-</div>
+                    </thead>
+                    <tbody>
+                        @foreach (var client in Model.Clients)
+                        {
+                            <tr>
+                                <td>@client.Name</td>
+                                <td>@client.Code</td>
+                                <td>@client.Class</td>
+                                <td>@client.State</td>
+                                <td>
+                                    <a asp-page="./Edit" asp-route-id="@client.ClientId" class="btn btn-warning">Edit</a> |
+                                    <a asp-page="./Delete" asp-route-id="@client.ClientId" class="btn btn-danger">Delete</a> |
+                                    <a asp-page="./Details" asp-route-id="@client.ClientId" class="btn btn-primary">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
 
+    </div>
+</div>
 @section Plugins {
     <script src="~/assets/plugins/datatables/datatables.bundle.js"></script>
 }

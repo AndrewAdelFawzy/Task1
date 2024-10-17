@@ -30,7 +30,6 @@ namespace Task1.Web.Pages.ClientProducts
             ClientProductModel = new()
             {
                 ProductId = product.Id,
-                Code = ""
             };
 
             return Page();
@@ -47,12 +46,25 @@ namespace Task1.Web.Pages.ClientProducts
             if (product is null)
                 return NotFound();
 
-            var client = await _context.Clients.Include(c=>c.Products).SingleOrDefaultAsync(c=>c.Code == ClientProductModel.Code);
+            var client = await _context.Clients.Include(c=>c.Products)
+                                               .SingleOrDefaultAsync(c=>c.Code == ClientProductModel.Code);
 
             if (client is null)
-                return NotFound();
+            {
+                ModelState.AddModelError(string.Empty, "Invalid client code");
+                return Page();
+            }
 
-            client.Products.Add(new()
+            var productExist = _context.ClientProducts.Where(cp => cp.ProductId == product.Id &&  cp.ClientId== client.Id).Any();
+
+            if (productExist)
+            {
+                ModelState.AddModelError(string.Empty, "Product already added to this client before");
+                return Page();
+            }
+
+
+            client.Products?.Add(new()
             {
                 ClientId = client.Id,
                 ProductId = product.Id,

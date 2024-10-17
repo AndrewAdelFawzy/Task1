@@ -9,13 +9,15 @@ namespace Task1.Web.ViewModels
         public int ProductId { get; set; }
         [MaxLength(50)]
         public string Name { get; set; } = null!;
+
         [Display(Name = "Start Date")]
-        [AssertThat("StartDate >= Today()")]
+        [AssertThat("StartDate >= Today()" , ErrorMessage = "The start date must be today or later")]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
-        [AssertThat("EndDate >= Today()")]
+        [AssertThat("EndDate >= Today()", ErrorMessage = "The End date must be today or later")]
         public DateTime? EndDate { get; set; }
+
         public string Lisence { get; set; } = null!;
     }
 }
