@@ -43,16 +43,12 @@
             <table class="table table-row-dashed table-row-gray-300 gy-7">
                 <thead>
                     <tr>
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Is Active
-                        </th>
-                        <th></th>
+                    <tr>
+                        <th class="fw-bold">Name</th>
+                        <th class="fw-bold">Description</th>
+                        <th class="fw-bold">Is Active</th>
+                        <th class="fw-bold justify-content-center">Actions</th>
+                    </tr>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,7 +78,10 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('table').DataTable();
+            $('table').DataTable({
+                "pageLength": 5, // Default number of rows per page
+                "lengthMenu": [[5, 10, 25, 50], [5, 10, 25, 50]] // Options in the dropdown
+            });
         });
     </script>
 }
