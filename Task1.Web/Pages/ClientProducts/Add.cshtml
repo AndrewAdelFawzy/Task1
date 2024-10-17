@@ -9,14 +9,22 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <form method="post">
-              <input type="hidden" asp-for="@Model.ClientProductModel.ProductId" /> 
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle me-2" viewBox="0 0 16 16">
+                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.964 0l-6.857 11.5A1.13 1.13 0 0 0 1.13 14.5h13.741a1.13 1.13 0 0 0 .982-1.434l-6.857-11.5zm-.936 10.5a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0zm.07-6.834a.905.905 0 0 1 1.791 0l-.007 4.48a.905.905 0 0 1-1.791 0l.007-4.48z" />
+            </svg>
+            <div>
+                <strong>Warning!</strong>
+            </div>
+            </div>
+            <input type="hidden" asp-for="@Model.ClientProductModel.ProductId" />
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col">
                             <div class="mb-5">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" asp-for="ClientProductModel.Code" />
+                                    <input type="number" class="form-control form-control-solid" placeholder="Name" asp-for="ClientProductModel.Code" />
                                     <label asp-for="ClientProductModel.Code"></label>
                                 </div>
                                 <span asp-validation-for="ClientProductModel.Code" class="text-danger d-block"></span>
@@ -35,6 +43,7 @@
                     </button>
                     <a class="btn btn-light text-primary ms-3" asp-page="/Products/Index">Back to list</a>
                 </div>
+            </div>
         </form>
     </div>
 
