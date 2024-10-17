@@ -1,0 +1,66 @@
+﻿@page
+@model Task1.Web.Pages.ClientProducts.EditModel
+@{
+    ViewData["Title"] = "Edit client product";
+}
+
+<h2 class="mb-4">Edit client product</h2>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="post">
+            <div class="row mb-4">
+                <input type="hidden" asp-for="ClientProductModel.ProductId" />
+                <input type="hidden" asp-for="ClientProductModel.ClientId" />
+
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control form-control-solid" placeholder="Product Name" asp-for="ClientProductModel.Name" readonly />
+                        <label asp-for="ClientProductModel.Name">Product Name</label>
+                    </div>
+                    <span asp-validation-for="ClientProductModel.Name" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control form-control-solid" placeholder="License" asp-for="ClientProductModel.Lisence" readonly />
+                        <label asp-for="ClientProductModel.Lisence">License</label>
+                    </div>
+                    <span asp-validation-for="ClientProductModel.Lisence" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="form-floating pb-1">
+                        <input type="date" class="form-control" placeholder="Start Date" asp-for="ClientProductModel.StartDate" />
+                        <label asp-for="ClientProductModel.StartDate">Start Date</label>
+                    </div>
+                    <span asp-validation-for="ClientProductModel.StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-floating pb-1">
+                        <input type="date" class="form-control" placeholder="End Date" asp-for="ClientProductModel.EndDate" />
+                        <label asp-for="ClientProductModel.EndDate">End Date</label>
+                    </div>
+                    <span asp-validation-for="ClientProductModel.EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="card-footer text-end bg-white">
+                <button type="submit" class="btn btn-primary">
+                    <span class="indicator-label">Save</span>
+                    <span class="indicator-progress">
+                        Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+                <a class="btn btn-light text-primary ms-3" asp-page="/Clients/Details" asp-route-Id="@Model.ClientProductModel.ClientId" >Back to list</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Task1.Infrastructure;
 using Task1.Web.ViewModels;
 
@@ -31,6 +32,7 @@ namespace Task1.Web.Pages.Products
             };
 
             return Page();
+            
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
@@ -39,6 +41,15 @@ namespace Task1.Web.Pages.Products
 
             if (product is null)
                 return NotFound();
+
+            var IsRelatedToClient =  _context.ClientProducts.Where(cp=>cp.ProductId == product.Id).Any();
+
+            if (IsRelatedToClient)
+            {
+                ModelState.AddModelError(string.Empty,"");
+                return Page();
+            }
+
 
             _context.Products.Remove(product);
             await _context.SaveChangesAsync();

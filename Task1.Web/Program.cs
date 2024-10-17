@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Task1.Infrastructure;
+using UoN.ExpressiveAnnotations.NetCore.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer((connectionString),
     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+builder.Services.AddExpressiveAnnotations();
 
 var app = builder.Build();
 

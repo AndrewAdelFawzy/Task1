@@ -18,6 +18,14 @@
 </div>
 
 <form method="post">
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-flex align-items-center" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle me-2" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.964 0l-6.857 11.5A1.13 1.13 0 0 0 1.13 14.5h13.741a1.13 1.13 0 0 0 .982-1.434l-6.857-11.5zm-.936 10.5a.75.75 0 1 1 1.5 0 .75.75 0 0 1-1.5 0zm.07-6.834a.905.905 0 0 1 1.791 0l-.007 4.48a.905.905 0 0 1-1.791 0l.007-4.48z"/>
+    </svg>
+    <div>
+        <strong>Warning!</strong> This product can't be deleted because it's related to client or more.
+    </div>
+</div>
     <input type="hidden" asp-for="Product.Id" />
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
