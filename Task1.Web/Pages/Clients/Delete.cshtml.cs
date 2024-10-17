@@ -28,7 +28,7 @@ namespace Task1.Web.Pages.Clients
             {
                 Name = client.Name,
                 Code = client.Code,
-                Id = id
+                ClientId = id
             };
 
             return Page();

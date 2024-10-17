@@ -11,5 +11,7 @@ namespace Task1.Core.Entities
         [MaxLength(150)]
         public string Description { get; set; } = null!;
         public bool IsActive { get; set; }
+
+        public ICollection<ClientProducts>? Clients { get; set; }
     }
 }

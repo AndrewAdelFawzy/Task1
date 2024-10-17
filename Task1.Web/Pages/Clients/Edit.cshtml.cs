@@ -28,7 +28,7 @@ namespace Task1.Web.Pages.Clients
 
             ClientModel = new()
             {
-                Id = client.Id,
+                ClientId = client.Id,
                 Name = client.Name,
                 Code = client.Code,
                 Class = client.Class,
@@ -60,7 +60,7 @@ namespace Task1.Web.Pages.Clients
             if (!ModelState.IsValid)
                 return Page();
                 
-            var client = await _context.Clients.FindAsync(ClientModel.Id);
+            var client = await _context.Clients.FindAsync(ClientModel.ClientId);
 
             if (client is null)
                 return NotFound();
@@ -72,7 +72,7 @@ namespace Task1.Web.Pages.Clients
 
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Details", new { id = ClientModel.ClientId });
         }
 
 

@@ -10,7 +10,18 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Product.Name</h5>
         <p class="card-text">@Model.Product.Description</p>
-        <p class="card-text">@Model.Product.IsActive</p>
+        <div class="d-flex align-items-center mb-1">
+            <span class="badge badge-light-@(Model.Product.IsActive ? "success" : "danger") me-auto">
+                @(Model.Product.IsActive ? "Active" :"Not Active")
+            </span>
+        </div>
         <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+
+        @if (Model.Product.IsActive)
+        {
+            <a asp-page="/ClientProducts/Add" asp-route-id="@Model.Product.Id" class="btn btn-primary">Add to Client</a>
+        }
+       
+
     </div>
 </div>
