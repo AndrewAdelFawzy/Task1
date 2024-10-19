@@ -1,28 +1,19 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Clients
 {
     public class DetailsModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
-        public DetailsModel(ApplicationDbContext context)
+        private readonly IClientService _clientService;
+        public DetailsModel(IClientService clientService)
         {
-            _context = context;
+            _clientService = clientService;
         }
 
         [BindProperty]
         public ClientViewModel ClientModel { get; set; } = new ClientViewModel();
 
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var client = await _context.Clients
-                                        .Include(c => c.Products!)
-                                        .ThenInclude(cp=>cp.Product)
-                                        .FirstOrDefaultAsync(c => c.Id == id);
+            var client = await _clientService.GetClientWithProductsByIdAsync(id);
 
             if (client is null)
                 return NotFound();

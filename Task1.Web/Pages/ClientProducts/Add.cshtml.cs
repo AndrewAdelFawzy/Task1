@@ -1,79 +1,57 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Task1.Core.Entities;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.ClientProducts
 {
     public class AddModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClientProductService _clientProductService;
 
-        public AddModel(ApplicationDbContext context)
+        public AddModel(IClientProductService clientProductService)
         {
-            _context = context;
+            _clientProductService = clientProductService;
         }
 
         [BindProperty]
         public ClientProductViewModel ClientProductModel { get; set; }
 
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _clientProductService.GetProductByIdAsync(id);
 
             if (product is null)
                 return NotFound();
 
-            ClientProductModel = new()
+            ClientProductModel = new ClientProductViewModel
             {
-                ProductId = product.Id,
+                ProductId = product.Id
             };
 
             return Page();
 
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return Page();
 
-            var product = await _context.Products.FindAsync(ClientProductModel.ProductId);
-
+            var product = await _clientProductService.GetProductByIdAsync(ClientProductModel.ProductId);
             if (product is null)
                 return NotFound();
 
-            var client = await _context.Clients.Include(c=>c.Products)
-                                               .SingleOrDefaultAsync(c=>c.Code == ClientProductModel.Code);
-
+            var client = await _clientProductService.GetClientByCodeAsync(ClientProductModel.Code);
             if (client is null)
             {
                 ModelState.AddModelError(string.Empty, "Invalid client code");
                 return Page();
             }
 
-            var productExist = _context.ClientProducts.Where(cp => cp.ProductId == product.Id &&  cp.ClientId== client.Id).Any();
-
+            var productExist = await _clientProductService.ProductAlreadyAddedToClientAsync(product.Id, client.Id);
             if (productExist)
             {
                 ModelState.AddModelError(string.Empty, "Product already added to this client before");
                 return Page();
             }
 
-
-            client.Products?.Add(new()
-            {
-                ClientId = client.Id,
-                ProductId = product.Id,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(30),
-                License= Guid.NewGuid().ToString()
-            });
-
-            await _context.SaveChangesAsync();
+            await _clientProductService.AddProductToClientAsync(client, product);
 
             return RedirectToPage("/Products/Index");
 

@@ -1,42 +1,31 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Task1.Core.Entities;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Products
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(IProductService productService, IMapper mapper)
         {
-            _context = context;
+            _productService = productService;
+            _mapper = mapper;
         }
 
         [BindProperty]
         public ProductViewModel ProductModel { get; set; }
-        
+
         public void OnGet()
         {
-
         }
 
-        public async Task <IActionResult> OnPost()
+        public async Task <IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
-           
-            Product product = new()
-            {
-                Name = ProductModel.Name,
-                Description = ProductModel.Description,
-                IsActive = ProductModel.IsActive,
-            };
+            
+            var product = _mapper.Map<Product>(ProductModel);
 
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            await _productService.AddProductAsync(product);
 
             return RedirectToPage("./Index");
         }

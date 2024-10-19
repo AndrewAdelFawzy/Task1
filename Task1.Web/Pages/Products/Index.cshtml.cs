@@ -1,35 +1,23 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Task1.Core.Entities;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Products
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(IProductService productService, IMapper mapper)
         {
-            _context = context;
+            _productService = productService;
+            _mapper = mapper;
         }
 
         public IList<ProductViewModel> Products { get; set; } = new List<ProductViewModel>();
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Products = await _context.Products
-                .Select(p => new ProductViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Description = p.Description,
-                    IsActive = p.IsActive,
-                })
-                .OrderBy(p => p.Name)
-                .ToListAsync();
+            var products = await _productService.GetAllProductsAsync();
+
+            Products = _mapper.Map<List<ProductViewModel>>(products);
 
             return Page();
         }

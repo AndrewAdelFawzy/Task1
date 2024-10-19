@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using UoN.ExpressiveAnnotations.NetCore.Attributes;
+﻿using UoN.ExpressiveAnnotations.NetCore.Attributes;
 
 namespace Task1.Web.ViewModels
 {
@@ -18,6 +17,6 @@ namespace Task1.Web.ViewModels
         [AssertThat("EndDate >= Today()", ErrorMessage = "The End date must be today or later")]
         public DateTime? EndDate { get; set; }
 
-        public string Lisence { get; set; } = null!;
+        public string License { get; set; } = null!;
     }
 }

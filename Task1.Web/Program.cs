@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Task1.Infrastructure;
+using System.Reflection;
+using Task1.Infrastructure.Persistence;
+using Task1.Infrastructure.ServiceClass;
+using Task1.Web.Mapping;
 using UoN.ExpressiveAnnotations.NetCore.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
 builder.Services.AddExpressiveAnnotations();
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
+
+builder.Services.AddScoped<IClientService,ClientService>();
+builder.Services.AddScoped<IProductService,ProductService>();
+builder.Services.AddScoped<IClientProductService,ClientProductService>();
 
 var app = builder.Build();
 

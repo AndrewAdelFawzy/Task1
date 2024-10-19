@@ -1,8 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-
-
-namespace Task1.Web.ViewModels
+﻿namespace Task1.Web.ViewModels
 {
     public class ClientProductsDetailsViewModel
     {
@@ -14,7 +10,6 @@ namespace Task1.Web.ViewModels
         public bool IsActive { get; set; }
 
         [Display(Name= "Start Date")]
-
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]

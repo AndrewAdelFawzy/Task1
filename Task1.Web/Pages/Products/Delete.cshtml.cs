@@ -1,61 +1,49 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
+
 
 namespace Task1.Web.Pages.Products
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(IProductService productService, IMapper mapper)
         {
-            _context = context;
+            _productService = productService;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public ProductViewModel Product { get; set; }
+        public ProductViewModel ProductModel { get; set; }
 
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
 
             if (product is null)
                 return NotFound();
 
-            Product = new()
-            {
-                Name = product.Name,
-                Id = id
-            };
+            ProductModel = _mapper.Map<ProductViewModel>(product);
 
             return Page();
-            
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
 
             if (product is null)
                 return NotFound();
 
-            var IsRelatedToClient =  _context.ClientProducts.Where(cp=>cp.ProductId == product.Id).Any();
-
-            if (IsRelatedToClient)
+            if (await _productService.IsProductRelatedToClientAsync(product.Id))
             {
                 ModelState.AddModelError(string.Empty,"");
                 return Page();
             }
 
-
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            await _productService.DeleteProductAsync(product);
 
             return RedirectToPage("./Index");
         }
-
     }
 }

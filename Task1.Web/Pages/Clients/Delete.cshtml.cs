@@ -1,51 +1,41 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Clients
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClientService _clientService;
+        private readonly IMapper _mapper;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(IClientService clientService, IMapper mapper)
         {
-            _context = context;
+            _clientService = clientService;
+            _mapper = mapper;
         }
 
         [BindProperty]
         public ClientViewModel ClientModel { get; set; }
 
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            var client = await _clientService.GetClientByIdAsync(id);
 
-            if (client is null)
+            if (client == null)
                 return NotFound();
 
-            ClientModel = new()
-            {
-                Name = client.Name,
-                Code = client.Code,
-                ClientId = id
-            };
+            ClientModel = _mapper.Map<ClientViewModel>(client);
 
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            var client = await _clientService.GetClientByIdAsync(id);
 
-            if (client is null)
+            if (client == null)
                 return NotFound();
 
-            _context.Clients.Remove(client);
-            await _context.SaveChangesAsync();
+            await _clientService.DeleteClientAsync(client);
 
             return RedirectToPage("./Index");
         }
-
     }
 }

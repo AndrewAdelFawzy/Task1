@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
-using Task1.Core.Entities;
-
-
-namespace Task1.Infrastructure
+﻿namespace Task1.Infrastructure.Persistence
 {
     public class ApplicationDbContext : DbContext
     {
@@ -33,7 +28,7 @@ namespace Task1.Infrastructure
                 .Property(c => c.State)
                 .HasConversion<string>();
 
-            
+
         }
     }
 }

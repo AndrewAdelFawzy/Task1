@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Task1.Infrastructure;
+using Task1.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace Task1.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241017183432_AlterClientTableCodeCloumnInt")]
-    partial class AlterClientTableCodeCloumnInt
+    [Migration("20241015101200_AddClientProductsTable")]
+    partial class AddClientProductsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,9 +36,10 @@ namespace Task1.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Code")
+                    b.Property<string>("Code")
+                        .IsRequired()
                         .HasMaxLength(9)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<string>("Name")
                         .IsRequired()

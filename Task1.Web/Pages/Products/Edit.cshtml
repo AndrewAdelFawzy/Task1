@@ -9,34 +9,34 @@
 <div class="card shadow-sm">
     <div class="card-body">
         <form method="post">
-            <input type="hidden" asp-for="@Model.Product.Id" /> 
+            <input type="hidden" asp-for="@Model.ProductModel.Id" /> 
             <div class="row">
                 <div class="col-md-5">
                     <div class="row">
                         <div class="col">
                             <div class="mb-5">
                                 <div class="form-floating mb-2">
-                                    <input type="text" class="form-control form-control-solid" placeholder="Name" asp-for="Product.Name" />
-                                    <label asp-for="Product.Name"></label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="Name" asp-for="ProductModel.Name" />
+                                    <label asp-for="ProductModel.Name"></label>
                                 </div>
-                                <span asp-validation-for="Product.Name" class="text-danger d-block"></span>
+                                <span asp-validation-for="ProductModel.Name" class="text-danger d-block"></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="mb-5">
                             <div class="form-floating mb-2">
-                                <textarea class="form-control form-control-solid js-tinymce" placeholder="Description" asp-for="Product.Description"></textarea>
-                                <label asp-for="Product.Description"></label>
+                                <textarea class="form-control form-control-solid js-tinymce" placeholder="Description" asp-for="ProductModel.Description"></textarea>
+                                <label asp-for="ProductModel.Description"></label>
                             </div>
-                            <span asp-validation-for="Product.Description" class="text-danger d-block"></span>
+                            <span asp-validation-for="ProductModel.Description" class="text-danger d-block"></span>
                         </div>
                     </div>
                     <div class="row mb-2">
                         <div class="col">
                             <div class="form-check form-switch form-check-solid form-check-custom mb-2">
-                                <input class="form-check-input" type="checkbox" asp-for="Product.IsActive">
-                                <label class="form-check-label" asp-for="Product.IsActive"></label>
+                                <input class="form-check-input" type="checkbox" asp-for="ProductModel.IsActive">
+                                <label class="form-check-label" asp-for="ProductModel.IsActive"></label>
                             </div>
                         </div>
                     </div>

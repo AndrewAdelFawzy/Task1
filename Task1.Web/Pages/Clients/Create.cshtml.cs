@@ -1,67 +1,59 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Task1.Core.Entities;
-using Task1.Core.Enums;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Clients
 {
     public class CreateModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly IClientService _clientService;
 
-        public CreateModel(ApplicationDbContext context)
+        public CreateModel(IMapper mapper, IClientService clientService)
         {
-            _context = context;
+            _mapper = mapper;
+            _clientService = clientService;
         }
 
         [BindProperty]
         public ClientViewModel ClientModel { get; set; }
-
         public void OnGet()
         {
-            ClientModel = new ClientViewModel
-            {
-                ClientStates = Enum.GetValues(typeof(ClientState))
-                .Cast<ClientState>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList(),
-
-                ClientClasses = Enum.GetValues(typeof(ClientClass))
-                .Cast<ClientClass>()
-                .Select(e => new SelectListItem
-                {
-                    Value = ((int)e).ToString(),
-                    Text = e.ToString()
-                }).ToList()
-            };
+            InitializeClientModel();
         }
-        public async Task<IActionResult> OnPost()
-        {
 
+        public async Task<IActionResult> OnPostAsync()
+        {
             if (!ModelState.IsValid)
             {
-                OnGet();
+                InitializeClientModel(); 
                 return Page();
             }
 
-            Client client = new()
-            {
-                Name = ClientModel.Name,
-                Code = ClientModel.Code,
-                State = ClientModel.State,
-                Class = ClientModel.Class,
-            };
+            var client = _mapper.Map<Client>(ClientModel);
 
-            await _context.Clients.AddAsync(client);
-            await _context.SaveChangesAsync();
+            await _clientService.AddClientAsync(client);
 
             return RedirectToPage("./Index");
         }
+
+        // populate ViewModel properties
+        private void InitializeClientModel()
+        {
+            ClientModel = new ClientViewModel
+            {
+                ClientStates = GetSelectListFromEnum<ClientState>(),
+                ClientClasses = GetSelectListFromEnum<ClientClass>()
+            };
+        }
+
+        //to map enums to SelectListItem
+        private List<SelectListItem> GetSelectListFromEnum<TEnum>() where TEnum : Enum
+        {
+            return Enum.GetValues(typeof(TEnum))
+                .Cast<TEnum>()
+                .Select(e => new SelectListItem
+                {
+                    Value = ((int)(object)e).ToString(),
+                    Text = e.ToString()
+                }).ToList();
+        }
     }
 }
+
