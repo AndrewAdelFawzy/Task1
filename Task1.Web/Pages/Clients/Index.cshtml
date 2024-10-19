@@ -40,14 +40,14 @@
         else
         {
             <div class="table-responsive">
-                <table class="table table-row-dashed table-row-gray-300 gy-7">
+                <table class="table table-row-dashed table-row-gray-400 gy-7">
                     <thead>
                         <tr>
                             <th class="fw-bold">Name</th>
                             <th class="fw-bold">Code</th>
                             <th class="fw-bold">Class</th>
                             <th class="fw-bold">State</th>
-                            <th class="fw-bold justify-content-center">Actions</th>
+                            <th class="fw-bold text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,10 +58,10 @@
                                 <td>@client.Code</td>
                                 <td>@client.Class</td>
                                 <td>@client.State</td>
-                                <td>
-                                    <a asp-page="./Edit" asp-route-id="@client.ClientId" class="btn btn-warning">Edit</a> |
-                                    <a asp-page="./Delete" asp-route-id="@client.ClientId" class="btn btn-danger">Delete</a> |
-                                    <a asp-page="./Details" asp-route-id="@client.ClientId" class="btn btn-primary">Details</a>
+                                <td class="text-center">
+                                    <a asp-page="./Edit" asp-route-id="@client.ClientId" class="btn btn-warning btn-sm">Edit</a>
+                                    <a asp-page="./Delete" asp-route-id="@client.ClientId" class="btn btn-danger btn-sm">Delete</a>
+                                    <a asp-page="./Details" asp-route-id="@client.ClientId" class="btn btn-primary btn-sm">Details</a>
                                 </td>
                             </tr>
                         }

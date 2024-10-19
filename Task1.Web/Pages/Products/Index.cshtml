@@ -47,7 +47,7 @@
                             <th class="fw-bold">Name</th>
                             <th class="fw-bold">Description</th>
                             <th class="fw-bold">Is Active</th>
-                            <th class="fw-bold justify-content-center">Actions</th>
+                            <th class="fw-bold text-center">Actions</th>
                         </tr>
                         </tr>
                     </thead>
@@ -62,7 +62,7 @@
                                         @(product.IsActive ? "Acitve" : "Not active")
                                     </span>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a asp-page="./Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a> |
                                     <a asp-page="./Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a> |
                                     <a asp-page="./Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
