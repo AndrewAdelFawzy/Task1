@@ -1,6 +1,4 @@
-﻿using Task1.Core.Entities;
-
-namespace Task1.Web.ViewModels
+﻿namespace Task1.Web.ViewModels
 {
     public class DeleteClientProductViewModel
     {

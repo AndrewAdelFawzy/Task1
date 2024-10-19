@@ -1,55 +1,43 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Task1.Core.Entities;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.ClientProducts
 {
     public class DeleteModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IClientProductService _clientProductService;
 
-        public DeleteModel(ApplicationDbContext context)
+        public DeleteModel(IClientProductService clientProductService)
         {
-            _context = context;
+            _clientProductService = clientProductService;
         }
 
         [BindProperty]
-        public DeleteClientProductViewModel deleteClientProduct { get; set; }
+        public DeleteClientProductViewModel DeleteClientProduct { get; set; }
 
-        public async Task<IActionResult> OnGet(int ProductId, int ClientId)
+        public async Task<IActionResult> OnGetAsync(int productId, int clientId)
         {
-            var clientProduct = await _context.ClientProducts
-                .SingleOrDefaultAsync(cp => cp.ProductId == ProductId && cp.ClientId == ClientId);
+            var clientProduct = await _clientProductService.GetClientProductAsync(productId, clientId);
 
             if (clientProduct is null)
                 return NotFound();
 
-            deleteClientProduct = new()
+            DeleteClientProduct = new ()
             {
-                ClientId = ClientId,
-                ProductId = ProductId
+                ClientId = clientId,
+                ProductId = productId
             };
 
             return Page();
-
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            var clientProduct =  _context.ClientProducts
-            .SingleOrDefault(cp => cp.ProductId == deleteClientProduct.ProductId &&
-                                        cp.ClientId == deleteClientProduct.ClientId);
+            var clientProduct = await _clientProductService.GetClientProductAsync(DeleteClientProduct.ProductId, DeleteClientProduct.ClientId);
 
             if (clientProduct is null)
                 return NotFound();
 
-            _context.Remove(clientProduct);
-            _context.SaveChanges();
+            await _clientProductService.DeleteClientProductAsync(clientProduct);
 
-            return RedirectToPage("/Clients/Details", new { id = deleteClientProduct.ClientId });
+            return RedirectToPage("/Clients/Details", new { id = DeleteClientProduct.ClientId });
         }
 
 

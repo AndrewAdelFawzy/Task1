@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Task1.Core.Entities
+﻿namespace Task1.Core.Entities
 {
     public class ClientProducts
     {

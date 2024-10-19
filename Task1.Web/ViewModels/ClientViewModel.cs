@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System.ComponentModel.DataAnnotations;
-using Task1.Core.Entities;
-using Task1.Core.Enums;
-
-namespace Task1.Web.ViewModels
+﻿namespace Task1.Web.ViewModels
 {
     public class ClientViewModel
     {
         public int ClientId { get; set; }
+
         [MaxLength(50)]
         public string Name { get; set; } = null!;
 

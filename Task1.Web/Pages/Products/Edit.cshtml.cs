@@ -1,55 +1,44 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Products
 {
     public class EditModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IProductService _productService;
+        private readonly IMapper _mapper;
 
-        public EditModel(ApplicationDbContext context)
+        public EditModel(IProductService productService, IMapper mapper)
         {
-            _context = context;
+            _productService = productService;
+            _mapper = mapper;
         }
 
         [BindProperty]
-        public ProductViewModel Product { get; set; }
+        public ProductViewModel ProductModel { get; set; }
 
-        public async Task<IActionResult> OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var product = await _context.Products.FindAsync(id);
+            var product = await _productService.GetProductByIdAsync(id);
 
             if (product == null)
                 return NotFound();
 
-             Product = new()
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                IsActive = product.IsActive,
-            };
+            ProductModel = _mapper.Map<ProductViewModel>(product);
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            var product = await _context.Products.FindAsync(Product.Id);
+            var product = await _productService.GetProductByIdAsync(ProductModel.Id);
 
             if (product is null)
                 return NotFound();
 
-            product.Name = Product.Name;
-            product.Description = Product.Description;
-            product.IsActive = Product.IsActive;
+            _mapper.Map(ProductModel, product);
 
-            await _context.SaveChangesAsync();
+            await _productService.UpdateProductAsync(product);
 
             return RedirectToPage("./Index");
         }

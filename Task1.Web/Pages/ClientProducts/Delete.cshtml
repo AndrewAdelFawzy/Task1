@@ -11,8 +11,8 @@
 
 <form method="post">
     
-    <input type="hidden" asp-for="@Model.deleteClientProduct.ProductId" />
-    <input type="hidden" asp-for="@Model.deleteClientProduct.ClientId" />
+    <input type="hidden" asp-for="@Model.DeleteClientProduct.ProductId" />
+    <input type="hidden" asp-for="@Model.DeleteClientProduct.ClientId" />
     <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-page="/Clients/Details" asp-route-id="@Model.deleteClientProduct.ClientId" class="btn btn-secondary">Cancel</a>
+    <a asp-page="/Clients/Details" asp-route-id="@Model.DeleteClientProduct.ClientId" class="btn btn-secondary">Cancel</a>
 </form>

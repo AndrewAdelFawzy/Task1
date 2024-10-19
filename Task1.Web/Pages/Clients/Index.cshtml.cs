@@ -1,34 +1,22 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Task1.Infrastructure;
-using Task1.Web.ViewModels;
-
 namespace Task1.Web.Pages.Clients
 {
     public class IndexModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly IClientService _clientService;
 
-        public IndexModel(ApplicationDbContext context)
+        public IndexModel(IMapper mapper, IClientService clientService)
         {
-            _context = context;
+            _mapper = mapper;
+            _clientService = clientService;
         }
 
         public IList<ClientViewModel> Clients { get; set; } = new List<ClientViewModel>();
         public async Task<IActionResult> OnGet()
         {
-           Clients = await _context.Clients
-                .Select(p => new ClientViewModel
-                {
-                    ClientId = p.Id,
-                    Name = p.Name,
-                    Code = p.Code,
-                    Class = p.Class,
-                    State = p.State,
-                })
-                .OrderBy(p => p.Code)
-                .ToListAsync();
+            var clients = await _clientService.GetAllClientsAsync();
+
+            Clients = _mapper.Map<IList<ClientViewModel>>(clients);
 
             return Page();
         }
